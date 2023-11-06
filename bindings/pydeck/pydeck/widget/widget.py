@@ -76,6 +76,7 @@ class DeckGLWidget(DOMWidget):
         self._drag_handlers = CallbackDispatcher()
         self._drag_start_handlers = CallbackDispatcher()
         self._drag_end_handlers = CallbackDispatcher()
+        self._select_handlers = CallbackDispatcher()
         self.on_msg(self._handle_custom_msgs)
 
         self.handler_exception = None
@@ -106,6 +107,9 @@ class DeckGLWidget(DOMWidget):
     def on_drag_end(self, callback, remove=False):
         self._drag_end_handlers.register_callback(callback, remove=remove)
 
+    def on_select(self, callback, remove=False):
+        self._select_handlers.register_callback(callback, remove=remove)
+
     def _handle_custom_msgs(self, _, content, buffers=None):
         content = json.loads(content)
         event_type = content.get("type", "")
@@ -123,3 +127,5 @@ class DeckGLWidget(DOMWidget):
             self._drag_handlers(self, content)
         elif event_type == "deck-drag-end-event":
             self._drag_end_handlers(self, content)
+        elif event_type == "deck-on-select-event":
+            self._select_handlers(self, content)

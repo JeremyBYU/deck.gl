@@ -129,7 +129,8 @@ function createStandaloneFromProvider({
         },
         onDragStart: info => handleEvent('deck-drag-start-event', info),
         onDrag: info => handleEvent('deck-drag-event', info),
-        onDragEnd: info => handleEvent('deck-drag-end-event', info)
+        onDragEnd: info => handleEvent('deck-drag-end-event', info),
+        onSelect: info => handleEvent('deck-on-select-event', info)
       }
     : null;
 
@@ -192,7 +193,7 @@ function createDeck({
 
     const oldLayers = jsonInput.layers || [];
     const props = jsonConverter.convert(jsonInput);
-
+    window.deckHandleEvent = handleEvent;
     addSupportComponents(container, props);
 
     const convertedLayers = (props.layers || []).filter(l => l);
@@ -224,7 +225,7 @@ function createDeck({
         }
       }
     };
-
+    console.log("Loaded latest version of deckgl! Version: Jeremy_01")
     addCustomLibraries(customLibraries, onComplete);
   } catch (err) {
     // This will fail in node tests
