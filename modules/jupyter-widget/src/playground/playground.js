@@ -83,7 +83,13 @@ export function processDataBuffer({binary, convertedJson}) {
 
 // Filters circular references on JSON string conversion
 function filterJsonValue(key, value) {
-  return value instanceof deckBundle.Layer ? value.id : value;
+  if (value instanceof deckBundle.Layer || value instanceof deckBundle._Tile2DHeader ) 
+  {
+    return value.id
+  }
+  else {
+    return value;
+  }
 }
 
 // Handles a general event
