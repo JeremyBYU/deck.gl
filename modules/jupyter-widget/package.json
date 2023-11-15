@@ -46,5 +46,11 @@
   "jupyterlab": {
     "extension": "src/plugin"
   },
+  "sharedPackages": {
+    "@jupyter-widgets/base": {
+      "bundled": false,
+      "singleton": true
+    }
+  },
   "gitHead": "13ace64fc2cee08c133afc882fc307253489a4e4"
 }
